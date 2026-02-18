@@ -22,12 +22,14 @@ async function pollForResult(requestId) {
     const data = await res.json();
     console.log(`Poll ${requestId}: full response:`, JSON.stringify(data));
 
+    if (data.video?.url) {
+      console.log(`Poll ${requestId}: done, video URL received`);
+      return data;
+    }
+
     const status = data.status || data.state;
     console.log(`Poll ${requestId}: status=${status}`);
 
-    if (status === "done" || status === "completed" || status === "complete") {
-      return data;
-    }
     if (status === "failed" || status === "error") {
       throw new Error(`Video generation failed: ${JSON.stringify(data)}`);
     }
