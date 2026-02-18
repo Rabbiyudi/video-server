@@ -10,7 +10,10 @@ const XAI_API_KEY = process.env.XAI_API_KEY;
 const XAI_BASE = "https://api.x.ai/v1/videos";
 
 function buildPrompt(sentence) {
-  return `Animate the uploaded image into a short cinematic video (6–8 seconds). Keep the style and characters exactly the same. Make Haman, who is leading the horse, walk forward and shout in clear hebrew: "${sentence}". Sync his mouth to the words. Add subtle motion: the horse walks, capes move slightly, and the crowd in the background has small cheering movements. Add a gentle camera push-in toward Haman and the rider. Keep lighting and colors unchanged. Audio: only Haman voice, bold and confident. No music, no text overlays, no subtitles. Output 16:9, smooth cinematic motion.`;
+  return `Animate this LEGO-style image into a 6-8 second cinematic video. This image contains two main LEGO characters that MUST be preserved exactly:
+1. HAMAN - the shorter LEGO figure in the foreground wearing black and dark red robes with gold details, black turban with red jewel, angry expression, black beard - he is leading the white horse
+2. MORDECAI - the LEGO figure riding the white horse, wearing white and blue royal robes, white beard, golden crown
+Keep ALL LEGO aesthetics, plastic textures, and toy-like appearance exactly as shown. Do NOT change any character designs, colors, or the Persian palace background. Only add motion: Haman walks forward pulling the horse, Mordecai sits proudly on the horse, capes flow slightly, the crowd of LEGO figures in background cheer with small arm movements, gentle camera push-in toward the characters. Haman shouts in clear Hebrew: '${sentence}'. Audio: only Haman's voice, bold and humiliated. No music, no text overlays, no subtitles. 16:9, smooth cinematic motion.`;
 }
 
 async function pollForResult(requestId) {
