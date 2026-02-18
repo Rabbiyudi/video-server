@@ -10,10 +10,27 @@ const XAI_API_KEY = process.env.XAI_API_KEY;
 const XAI_BASE = "https://api.x.ai/v1/videos";
 
 function buildPrompt(sentence) {
-  return `Animate this LEGO-style image into a 6-8 second cinematic video. This image contains two main LEGO characters that MUST be preserved exactly:
-1. HAMAN - the shorter LEGO figure in the foreground wearing black and dark red robes with gold details, black turban with red jewel, angry expression, black beard - he is leading the white horse
-2. MORDECAI - the LEGO figure riding the white horse, wearing white and blue royal robes, white beard, golden crown
-Keep ALL LEGO aesthetics, plastic textures, and toy-like appearance exactly as shown. Do NOT change any character designs, colors, or the Persian palace background. Only add motion: Haman walks forward pulling the horse, Mordecai sits proudly on the horse, capes flow slightly, the crowd of LEGO figures in background cheer with small arm movements, gentle camera push-in toward the characters. Haman shouts in clear Hebrew: '${sentence}'. Audio: only Haman's voice, bold and humiliated. No music, no text overlays, no subtitles. 16:9, smooth cinematic motion.`;
+  return `Animate this exact LEGO image into a 6-8 second cinematic video.
+
+CRITICAL: Preserve EXACTLY:
+- HAMAN: LEGO minifigure, black turban with red jewel, black beard, red-black robe with gold accents, dark red cape, walking ahead holding white horse reins, frustrated expression
+- MORDECAI: LEGO minifigure, white beard, blue-gold crown, royal blue-gold robe, deep blue cape, riding white horse with blue-gold harness, calm dignified expression
+- WHITE LEGO HORSE with blue-gold harness and saddle
+- Persian palace background with LEGO domes and arches
+- Cheering LEGO crowd on both sides
+- Warm daylight, cinematic lighting, stone LEGO tile ground
+
+All characters must remain LEGO minifigure style - plastic, slightly glossy, toy-scale.
+
+Motion to add ONLY:
+- Haman walks forward pulling the horse reins
+- Horse walks forward naturally
+- Capes flow slightly
+- Crowd arms wave in celebration
+- Gentle camera push-in toward the characters
+
+Haman shouts in clear Hebrew: '${sentence}'
+Audio: only Haman's voice, bold and humiliated. No music, no text overlays, no subtitles. 16:9.`;
 }
 
 async function pollForResult(requestId) {
