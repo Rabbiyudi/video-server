@@ -20,12 +20,15 @@ async function pollForResult(requestId) {
       headers: { Authorization: `Bearer ${XAI_API_KEY}` },
     });
     const data = await res.json();
-    console.log(`Poll ${requestId}: status=${data.status}`);
+    console.log(`Poll ${requestId}: full response:`, JSON.stringify(data));
 
-    if (data.status === "done") {
+    const status = data.status || data.state;
+    console.log(`Poll ${requestId}: status=${status}`);
+
+    if (status === "done" || status === "completed" || status === "complete") {
       return data;
     }
-    if (data.status === "failed" || data.status === "error") {
+    if (status === "failed" || status === "error") {
       throw new Error(`Video generation failed: ${JSON.stringify(data)}`);
     }
     await new Promise((r) => setTimeout(r, 10000));
@@ -66,7 +69,7 @@ app.post("/generate-video", async (req, res) => {
     console.log(`Request ID: ${requestId}`);
 
     const result = await pollForResult(requestId);
-    const videoUrl = result.video_url || result.url || result.output?.url;
+    const videoUrl = result.video?.url || result.video_url || result.url || result.output?.url;
 
     res.json({ success: true, video_url: videoUrl });
   } catch (err) {
